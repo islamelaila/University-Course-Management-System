@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.spring.boot.model.Instructor;
 import com.spring.boot.model.Student;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.util.List;
 
 @Getter
@@ -22,7 +22,9 @@ public class CourseDto {
     private long id;
 
     @Column(unique = true)
+    @NotBlank(message = "Title cannot be Null or Empty")
     private String title;
+    @NotBlank(message = "Description cannot be Null or Empty")
     private String description;
 
     @ManyToMany(mappedBy = "courses")

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface InstructorService {
 
-    Instructor save(Instructor instructor);
+    InstructorDto save(InstructorDto instructorDto);
 
     List<InstructorDto> getAllInstructors();
 

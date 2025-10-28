@@ -24,7 +24,7 @@ public class Instructor {
     private  String name;
     private  String email;
 
-    @OneToMany(mappedBy = "instructor")
+    @OneToMany(mappedBy = "instructor" , fetch = FetchType.EAGER)
     @JsonIgnoreProperties("instructor")
     private List<Course> courses;
     ;

@@ -7,6 +7,7 @@ import com.spring.boot.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -18,6 +19,8 @@ public class CourseServiceImpl implements CourseService {
 
     private CourseMapper courseMapper;
 
+
+
     @Autowired
     public CourseServiceImpl(CourseRepo courseRepo , CourseMapper courseMapper) {
         this.courseRepo = courseRepo;
@@ -26,6 +29,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseDto saveCourse(CourseDto courseDto) {
+        if (!Objects.nonNull(courseDto.getId())){
+            throw new RuntimeException("Can't save course with id, it should be null");
+        }
 
         Course course = courseRepo.save(courseMapper.toEntity(courseDto));
         courseDto.setId(course.getId());

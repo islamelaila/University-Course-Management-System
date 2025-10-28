@@ -1,10 +1,14 @@
 package com.spring.boot.controller;
 import com.spring.boot.dto.CourseDto;
-import com.spring.boot.model.Course;
 import com.spring.boot.service.CourseService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -18,18 +22,21 @@ public class CourseController {
     }
 
     @PostMapping("course/save")
-    public CourseDto saveCourse(@RequestBody CourseDto courseDto) {
-        return courseService.saveCourse(courseDto);
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<CourseDto> saveCourse(@RequestBody @Valid CourseDto courseDto) throws URISyntaxException {
+        return ResponseEntity.created(new URI("/course/save")).body(courseService.saveCourse(courseDto));
     }
 
     @GetMapping ("course/all")
-    public List<CourseDto> getAllCourses() {
-        return courseService.getAllCourses();
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<List<CourseDto>> getAllCourses() {
+        return ResponseEntity.ok(courseService.getAllCourses());
     }
 
     @GetMapping("course/get/{id}")
-    public CourseDto getCourseById(@PathVariable long id) {
-        return courseService.getCourseById(id);
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<CourseDto> getCourseById(@PathVariable long id) {
+        return ResponseEntity.ok(courseService.getCourseById(id));
     }
 
 }

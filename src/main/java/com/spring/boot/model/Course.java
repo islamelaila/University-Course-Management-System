@@ -24,7 +24,7 @@ public class Course {
     private String title;
     private String description;
 
-    @ManyToMany(mappedBy = "courses")
+    @ManyToMany(mappedBy = "courses" , fetch = FetchType.EAGER , cascade = {CascadeType.ALL})
     @JsonIgnoreProperties("students")
     private List<Student> students;
 
