@@ -163,9 +163,7 @@ Each extends `JpaRepository<>` for CRUD and query operations.
 ---
 
 ## 🏗️ Future Enhancements
-- Add pagination and sorting  
-- Add validation and exception handling  
-- Add DTOs and mapping layers  
+- Add pagination and sorting   
 - Implement authentication and authorization (JWT)
 
 ---
